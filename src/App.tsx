@@ -1,6 +1,7 @@
 import { useStore } from "effector-react";
-import $store, { addTodo, deleteTodo, setNewTodo, toggleDone } from "./store";
+import $store, { addTodo, setNewTodo } from "./store";
 import { MouseEvent } from "react";
+import Item from "./Item";
 
 const App = () => {
   const store = useStore($store);
@@ -9,31 +10,26 @@ const App = () => {
     addTodo();
   };
   return (
-    <div>
-      <div>
+    <div className={"main"}>
+      <div className={"form"}>
         <h2>Add a task</h2>
         <form>
           <input
             type="text"
             value={store.newTodo}
             onChange={(e) => setNewTodo(e.currentTarget.value)}
+            placeholder={"Learn Effector..."}
           />
           <button onClick={handleAddTask}>Add</button>
         </form>
       </div>
       <div>
         <h2>Todo List:</h2>
-        {store.todoList.map((i) => (
-          <div key={i.id}>
-            <input
-              type="checkbox"
-              checked={i.done}
-              onChange={() => toggleDone(i.id)}
-            />
-            {i.text}
-            <button onClick={() => deleteTodo(i.id)}>Delete</button>
-          </div>
-        ))}
+        <div className={"list"}>
+          {store.todoList.map((i) => (
+            <Item key={i.id} done={i.done} text={i.text} id={i.id} />
+          ))}
+        </div>
       </div>
     </div>
   );

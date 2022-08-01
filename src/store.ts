@@ -1,7 +1,7 @@
 import { createEvent, createStore } from "effector";
 import { v4 as uuidv4 } from "uuid";
 
-type todoType = {
+export type todoType = {
   id: string;
   done: boolean;
   text: string;
